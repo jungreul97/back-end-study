@@ -96,6 +96,6 @@ public class ex19 {
             }
             System.out.println();
         }
-        
+
     }
 }
