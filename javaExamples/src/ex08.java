@@ -7,11 +7,21 @@ public class ex08 {
         i--;
         System.out.println(i); // 10
 
+        // 앞++/-- 뒤++/--
+        i = 10;
+        int j = 20;
+        System.out.println(i++ + ++j - i++);
+        System.out.println(i);
+        System.out.println(j);
+        i = 10;
+        j = 20;
+        System.out.println(--i + j++ - ++j);
+
         boolean b = true;
         System.out.println(!b); // false
         System.out.println(!!b); // true
 
-        int j = 20;
+        j = 20;
         short s = (short)j; // 작은 타입 <= 큰 타입 : 강제형변환
 
         int k = 10; // 32bit 000000.....1010
