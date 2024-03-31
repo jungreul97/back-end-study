@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class mini05 {
-    static class Student{
+    static class Student{ // new 생성자 없이 그냥 생성가능함 static 클래스는
         private String name;
         private int kor;
         private int eng;

@@ -15,8 +15,8 @@ public class ex54 {
         // }
 
         String name = null; // 널 null : 값이 없다. 존재하지 않음, 연산불가.
-        System.out.println( name ); // null
-        System.out.println(name.toLowerCase());
+//        System.out.println( name ); // null
+//        System.out.println(name.toLowerCase());
 
         try{
             System.out.println(name.toLowerCase());

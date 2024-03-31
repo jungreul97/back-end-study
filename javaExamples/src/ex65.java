@@ -68,6 +68,8 @@ public class ex65 {
 
         LocalDateTime todayTime1 = today.atStartOfDay();
         LocalDateTime todayTime2 = xmas3.atStartOfDay();
+        System.out.println(todayTime1);
+        System.out.println(todayTime2);
         long ms1 = Timestamp.valueOf(todayTime1).getTime();
         long ms2 = Timestamp.valueOf(todayTime2).getTime();
         System.out.println( ms1 );

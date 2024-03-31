@@ -32,3 +32,4 @@ class MyException extends Exception {
         System.out.println(this.massage);
     }
 }
+
