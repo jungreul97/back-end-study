@@ -72,22 +72,15 @@
                     </tr>
                     <tr th:each="product, status: ${list}" class="text-center align-middle">
                         <th th:text="${status.count}" scope="row"><span>1</span></th>
-                        <td th:text="${product.name}" class="text-center align-middle">
-                            베이컨버거
-                        </td>
-                        <td th:text="${product.price}"class="text-center align-middle">
-                            10000
-                        </td>
-                        <td th:text="${product.limit_date}"class="text-center align-middle">
-                            2024-03-06
-                        </td>
+                        <td th:text="${product.name}" class="text-center align-middle"></td>
+                        <td th:text="${product.price}"class="text-center align-middle"></td>
+                        <td th:text="${product.limit_date}"class="text-center align-middle"></td>
                         <td class="text-center align-middle">
                             <a
                                     th:href="|/editProductForm?index=${status.index}|"
                                     class="btn btn-primary fw-bold editBtn"
                                     role="button"
-                            >수정</a
-                            >
+                            >수정</a>
                         </td>
                         <td class="text-center align-middle">
                             <a
@@ -95,8 +88,7 @@
                                     class="btn btn-danger fw-bold removeBtn"
                                     role="button"
                                     onclick="return confirmAndNotify(this)"
-                            >삭제</a
-                            >
+                            >삭제</a>
                         </td>
                     </tr>
                 </table>
@@ -108,7 +100,7 @@
                 class="listSizeBox bg-white rounded-start text-danger fw-bold"
         >
             <span id="total">▲ 총</span>
-            <span class="text-dark">1</span>
+            <span th:text="${count}" class="text-dark">1</span>
             <span id="totalNum">개의 상품이 있습니다.</span>
         </div>
         <!-- 상품 추가하기 버튼 -->
@@ -133,7 +125,7 @@
         // "확인"
         window.location.href = link.getAttribute("href");
       }
-      return false;
+      return false; // 취소했을 경우 통신이 안날아감
     }
 
     // 언어 선택 토글
