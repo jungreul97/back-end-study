@@ -53,4 +53,8 @@ public class Board {
         this.boardDate = LocalDateTime.now(); //현재시간으로 업데이트
     }
 
+    public void updateHit(Long boardHit){
+        this.boardHit = boardHit;
+    }
+
 }
