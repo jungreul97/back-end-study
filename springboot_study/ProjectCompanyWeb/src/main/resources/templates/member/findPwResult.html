@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>비밀번호 찾기 결과</title>
+</head>
+<body>
+    <div class="container">
+        <h2>비밀번호 찾기 결과</h2>
+        <div th:if="${memberPw}">
+            <p th:text="'회원님의 비밀번호는 ' + ${memberPw} + '입니다.'"></p>
+        </div>
+        <div th:unless="${memberPw}">
+            <p>해당 정보와 일치하는 회원 비밀번호를 찾을 수 없습니다.</p>
+        </div>
+        <button onclick="location.href = '/member/login';">닫기</button>
+    </div>
+</body>
+</html>

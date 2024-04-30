@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>회사홈페이지</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/common.css" />
+    <!-- main.jsp, login.jsp, ... -->
+    <link rel="stylesheet" href="/css/admin/admin.css" />
+
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+      integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn"
+      crossorigin="anonymous"
+    />
+    <!-- Bootstarp JS -->
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+
+  <body>
+  <!-- 헤더 -->
+  <div th:replace="/fragments/headerTop.html :: fragment-headerTop"></div>
+  <div th:replace="/fragments/header.html :: fragment-header" class="sticky-top"></div>
+  
+    <!-- 메인 -->
+    <!-- COMMON -->
+
+    <div class="commonSection1">
+      <div class="commonContent1">
+        <img
+          src="/img/member/sub-visual01.jpg"
+          style="width: 100%; height: 100%"
+        />
+        <div class="commonContent2 text-center">
+          <div>
+            <h3>관리자페이지</h3>
+          </div>
+          <div>
+            <p><img src="/img/icon-home.png" /> > 관리자페이지</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="adminMain">
+      <!-- 사이드메뉴 -->
+      <div id="adminSide">
+        <ul>
+          <li><a href="/admin/admin_member">회원 관리</a></li>
+          <li>
+            <a href="/admin/admin_notice" class="adminSideActive">공지사항 관리</a>
+          </li>
+          
+        </ul>
+      </div>
+      <!-- 메인 -->
+      <div id="adminSection">
+        <div class="adminDiv">
+          <h3>공지사항 관리</h3>
+        </div>
+        <div class="adminDiv">
+          검색 옵션
+          <form action="/admin/searchAdminNoticeAction">
+            <select name="searchType" id="searchType">
+              <option value="all" th:selected="${searchType == null || searchType == 'all'}">전체</option>
+              <option value="title" th:select="${searhType == 'title'}">제목</option>
+              <option value="content" th:select="${searhType == 'content'}">내용</option>
+              <option value="member_id" th:select="${searhType == 'member_id'}">작성자아이디</option>
+            </select>
+            <input
+              type="text"
+              name="keyword"
+              id="searchkeyword"
+              th:value="${keyword}"
+            />
+            <input type="image" src="../img/community/search.gif" />
+          </form>
+        </div>
+        <div class="adminDiv">
+          정렬
+          <select class="size" name="order_select" id="order_select" onchange="searchWithOrder()">
+            <option value="member_id_asc" selected>아이디 오름차순</option>
+            <option value="member_id_desc">아이디 내림차순</option>
+            <option value="date_asc">등록일 오름차순</option>
+            <option value="date_desc">등록일 내림차순</option>
+          </select>
+        </div>
+        <div class="adminDiv2" id="tableTitle">
+          <div>목록 10건</div>
+          <div>
+            한페이지 행수
+            <select class="size" name="page_select" id="page_select" onchange="searchWithOrder()">
+              <option value="5">5개만 보기</option>
+              <option value="10">10개만 보기</option>
+              <option value="all">전체 보기</option>
+            </select>
+          </div>
+        </div>
+        <div class="">
+          <table class="adminTable">
+            <thead>
+              <tr>
+                <th>글번호</th>
+                <th>제목</th>
+                <th>글쓴이</th>
+                <th>작성일</th>
+              </tr>
+            </thead>
+            
+            <tbody>
+              <tr th:each="dto, status : ${list}">
+                <td>
+                  <a th:href="@{/admin/admin_notice_view(notice_idx=${dto.noticeIdx},count=${status.count})}" th:text="${ status.count }"></a>
+                </td>
+                <td>
+                  <a th:href="@{/admin/admin_notice_view(notice_idx=${dto.noticeIdx},count=${status.count})}" th:text="${dto.noticeTitle}"></a>
+                </td>
+                <td>
+                  <a th:href="@{/admin/admin_notice_view(notice_idx=${dto.noticeIdx},count=${status.count})}" th:text="${dto.noticeMemberId}"></a>
+                </td>
+                <td>
+                  <a th:href="@{/admin/admin_notice_view(notice_idx=${dto.noticeIdx},count=${status.count})}" th:text="${ #temporals.format(dto.noticeDate, 'yyyy-MM-dd HH:mm') }"></a>
+                </td>
+              </tr>
+              </tr>
+            </tbody>
+
+          </table>
+        </div>
+
+        <div class="pageNav adminDiv2">
+          
+          <div><a href="/admin/admin_notice_write">공지글 쓰기</a></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 푸터 -->
+    <div th:replace="/fragments/footer.html :: fragment-footer"></div>
+
+      <script>
+        // back to top 기능
+        $(document).ready(function () {
+          $(window).scroll(function () {
+            if ($(this).scrollTop() > 50) {
+              console.log("fadeIn");
+              $("#back-to-top").fadeIn();
+            } else {
+              console.log("fadeOut");
+              $("#back-to-top").fadeOut();
+            }
+          });
+          // scroll body to 0px on click
+          $("#back-to-top").click(function () {
+            console.log("click");
+            $("#back-to-top").tooltip("hide");
+            $("body,html").animate(
+              {
+                scrollTop: 0,
+              },
+              500
+            );
+            return false;
+          });
+          $("#back-to-top").tooltip("show");
+        });
+
+
+        function searchWithOrder() {
+
+        // 검색 조건과 정렬 조건을 가져옵니다.
+        var searchOption = $('#search_select').val();
+        var keyword = $('#search_keyword').val();
+        var sortOrder = $('#order_select').val();
+        var dataSize = $('#page_select').val();
+        //alert("전송되는 정렬 조건: " + sortOrder + " 페이지 갯수 " + dataSize); // 디버깅을 위한 로그 출력
+
+        $.ajax({
+        url: '/admin/admin_notice/search', // 서버 URL을 적절히 수정하세요.
+        type: 'GET',
+        data: {
+          searchOption: searchOption,
+          keyword: keyword,
+          sortOrder: sortOrder,
+          dataSize: dataSize
+        },
+        success: function(data) {
+          // 테이블의 tbody 내용을 비웁니다.
+          var tbody = $('.adminTable tbody');
+          tbody.empty();
+
+          // 서버로부터 받은 데이터로 테이블을 채웁니다.
+          $.each(data, function(index, notice) {
+              var url = `/admin/admin_notice_view?notice_idx=${notice.noticeIdx}&count=${index+1}`;
+              var row = `<tr>
+                          <td><a href = "${url}">${index+1}</a></td>
+                          <td><a href = "${url}">${notice.noticeTitle}</a></td>
+                          <td><a href = "${url}">${notice.noticeMemberId}</a></td>
+                          <td><a href = "${url}">${notice.noticeDate}</a></td>
+                        </tr>`;
+              tbody.append(row);
+            });
+          
+          // 회원목록 건수 업데이트
+          $('#tableTitle div:first-child').text(`회원목록 ${data.length}건`);
+        },
+        error: function(xhr, status, error) {
+          alert("에러 발생: " + error);
+        }
+        });
+        }
+
+       
+</script>
+
+</body>
+</html>
+
+
